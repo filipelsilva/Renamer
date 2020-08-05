@@ -6,7 +6,7 @@ from datetime import date
 from auxiliary_functions import info_directory
 
 def rename_time(directory):
-    files, extension = info_directory(directory)
+    files, extension = info_directory(directory, 0)
 
     today = date.today().strftime("%d.%m.%Y")
 
@@ -15,18 +15,15 @@ def rename_time(directory):
             "{}/{} ({}){}".format(directory, today, i, extension))
 
 def rename_enumerate(directory):
-    files, extension = info_directory(directory)        
+    files, extension = info_directory(directory, 0)        
 
     for i, file in enumerate(files, 1):
         os.rename("{}/{}".format(directory, file),\
             "{}/{}{}".format(directory, i, extension))
 
 def rename_extension(directory, extension):
-    files, old_ext = info_directory(directory)
+    files, names, _ = info_directory(directory, 1)
 
-    for i in range(len(files)):
-        files[i] = os.path.splitext(files[i])[0]
-
-    for file in files:
-        os.rename("{}/{}".format(directory, file + old_ext),\
-            "{}/{}{}".format(directory, file, extension))
+    for file, name in zip(files, names):
+        os.rename("{}/{}".format(directory, file),\
+            "{}/{}{}".format(directory, name, extension))
