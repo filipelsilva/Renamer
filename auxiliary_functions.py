@@ -21,7 +21,7 @@ def info_directory(directory, mode):
     return files, extension
 
 def wrong_extension(name):
-    pattern = "[.]\d\d\d\d[ ][(]\d+[)]"
+    pattern = r"[.]\d\d\d\d[ ][(]\d+[)]"
 
     if re.findall(pattern, name) == []:
         return False
